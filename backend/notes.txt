@@ -1,0 +1,1 @@
+If you create 'tsts' directory/folder make sure you remove tests.py from same app, otherwise your test will not run

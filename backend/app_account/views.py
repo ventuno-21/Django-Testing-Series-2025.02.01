@@ -15,7 +15,7 @@ class UserRegisterView(View):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect("home:home")
+            return redirect("app_test1:homey")
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
@@ -28,7 +28,7 @@ class UserRegisterView(View):
             cd = form.cleaned_data
             User.objects.create_user(cd["username"], cd["email"], cd["password1"])
             messages.success(request, "you registered successfully", "success")
-            return redirect("home:home")
+            return redirect("app_test1:homey")
         return render(request, self.template_name, {"form": form})
 
 
@@ -42,7 +42,7 @@ class UserLoginView(View):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect("home:home")
+            return redirect("app_test1:homey")
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
@@ -61,7 +61,7 @@ class UserLoginView(View):
                 messages.success(request, "you logged in successfully", "success")
                 if self.next:
                     return redirect(self.next)
-                return redirect("home:home")
+                return redirect("app_test1:homey")
             messages.error(request, "username or password is wrong", "warning")
         return render(request, self.template_name, {"form": form})
 
@@ -70,7 +70,7 @@ class UserLogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         messages.success(request, "you logged out successfully", "success")
-        return redirect("home:home")
+        return redirect("app_test1:homey")
 
 
 class UserProfileView(LoginRequiredMixin, View):
@@ -100,7 +100,7 @@ class UserPasswordResetDoneView(auth_views.PasswordResetDoneView):
 
 class UserPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     template_name = "app_account/password_reset_confirm.html"
-    success_url = reverse_lazy("account:password_reset_complete")
+    success_url = reverse_lazy("app_account:password_reset_complete")
 
 
 class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
@@ -114,7 +114,7 @@ class UserFollowView(LoginRequiredMixin, View):
             return super().dispatch(request, *args, **kwargs)
         else:
             messages.error(request, "you cant follow/unfollow your account", "danger")
-            return redirect("account:user_profile", user.id)
+            return redirect("app_account:user_profile", user.id)
 
     def get(self, request, user_id):
         user = User.objects.get(id=user_id)
@@ -124,7 +124,7 @@ class UserFollowView(LoginRequiredMixin, View):
         else:
             Relation(from_user=request.user, to_user=user).save()
             messages.success(request, "you followed this user", "success")
-        return redirect("account:user_profile", user.id)
+        return redirect("app_account:user_profile", user.id)
 
 
 class UserUnfollowView(LoginRequiredMixin, View):
@@ -134,7 +134,7 @@ class UserUnfollowView(LoginRequiredMixin, View):
             return super().dispatch(request, *args, **kwargs)
         else:
             messages.error(request, "you cant follow/unfollow your account", "danger")
-            return redirect("account:user_profile", user.id)
+            return redirect("app_account:user_profile", user.id)
 
     def get(self, request, user_id):
         user = User.objects.get(id=user_id)
@@ -144,7 +144,7 @@ class UserUnfollowView(LoginRequiredMixin, View):
             messages.success(request, "you unfollowed this user", "success")
         else:
             messages.error(request, "you are not following this user", "danger")
-        return redirect("account:user_profile", user.id)
+        return redirect("app_account:user_profile", user.id)
 
 
 class EditUserView(LoginRequiredMixin, View):

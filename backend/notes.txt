@@ -1,5 +1,15 @@
 If you create 'tsts' directory/folder make sure you remove tests.py from same app, otherwise your test will not run
 ======================================================================
+=======pytest Installation
+1) After installation of pytest & pytest-django
+2) create pytest.ini file in root path of project
+3) add below lines inside pytets.ini
+[pytest]
+DJANGO_SETTINGS_MODULE = A_config.settings
+4) now you can run your pytest or unittest via below command in terminal
+$pytest
+
+======================================================================
 =======pytest terminal
 
 show test with specific marks:
@@ -7,6 +17,7 @@ $ <file_name.py> -v -p no:warnings -m <mark_name>
 
 show test without specific marks:
 $ <file_name.py> -v -p no:warnings -m "not <mark_name>"
+
 ======================================================================
 =======pytest fixture
 use this function before or after ruuning what test
@@ -17,6 +28,7 @@ def company():
 
 def test_with_fixture(company):
     print(f" Printing {company} from fixture")
+
 ======================================================================
 =======pytest parametrize
 @pytest.mark.parametrize(
@@ -32,6 +44,7 @@ def test_paramertize(company_name):
 1) pip install black
 2) to format all files should write below code in terminal:
 $ black .
+
 ======================================================================
 ======= UnitTest terminal
 with verbosity flag we can decide how much of information we want to be shown
@@ -39,4 +52,5 @@ with verbosity flag we can decide how much of information we want to be shown
 2) 0 shows less output, 
 3) 3 shows too many details in output
 $ python manage.py test --verbosity 3
+
 ======================================================================

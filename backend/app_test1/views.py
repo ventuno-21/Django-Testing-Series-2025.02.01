@@ -1,9 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from app_test1.models import Writer
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 # Create your views here.
+class Main(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("app_test1:writers")
+        return render(request, "app_test1/main.html")
 
 
 class Home(View):

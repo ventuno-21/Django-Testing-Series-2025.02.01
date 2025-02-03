@@ -1,1 +1,42 @@
 If you create 'tsts' directory/folder make sure you remove tests.py from same app, otherwise your test will not run
+======================================================================
+=======pytest terminal
+
+show test with specific marks:
+$ <file_name.py> -v -p no:warnings -m <mark_name>
+
+show test without specific marks:
+$ <file_name.py> -v -p no:warnings -m "not <mark_name>"
+======================================================================
+=======pytest fixture
+use this function before or after ruuning what test
+
+@pytest.fixture
+def company():
+    return company(name='fiver', stock_symbol='FVRR')
+
+def test_with_fixture(company):
+    print(f" Printing {company} from fixture")
+======================================================================
+=======pytest parametrize
+@pytest.mark.parametrize(
+    'company_name',
+    ['yahoo', 'google', 'ventuno']
+)
+
+def test_paramertize(company_name):
+    print(f"\n Test with {company_name}")
+
+======================================================================
+=======black library
+1) pip install black
+2) to format all files should write below code in terminal:
+$ black .
+======================================================================
+======= UnitTest terminal
+with verbosity flag we can decide how much of information we want to be shown
+1) the range of verbosity flag is between 0 to 3 , 
+2) 0 shows less output, 
+3) 3 shows too many details in output
+$ python manage.py test --verbosity 3
+======================================================================

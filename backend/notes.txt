@@ -1,13 +1,15 @@
-If you create 'tsts' directory/folder make sure you remove tests.py from same app, otherwise your test will not run
+If you create 'tests' directory/folder make sure you remove tests.py from same app, otherwise your test will not run
 ======================================================================
 =======pytest Installation
-1) After installation of pytest & pytest-django
-2) create pytest.ini file in root path of project
-3) add below lines inside pytets.ini
+1) activate your virtual enviroment
+$ venv/Scripts/activate
+2) After installation of pytest & pytest-django
+3) create pytest.ini file in root path of project
+4) add below lines inside pytets.ini
 [pytest]
 DJANGO_SETTINGS_MODULE = A_config.settings
-4) now you can run your pytest or unittest via below command in terminal
-$pytest
+5) now you can run your pytest or unittest via below command in terminal
+$ pytest
 
 ======================================================================
 =======pytest terminal

@@ -26,3 +26,7 @@ class WriterView(LoginRequiredMixin, View):
     def get(self, request):
         writers = Writer.objects.all()
         return render(request, "app_test1/writers.html", {"writers": writers})
+
+
+def is_even(n):
+    return n % 2 == 0

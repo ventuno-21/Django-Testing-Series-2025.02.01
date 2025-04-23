@@ -47,17 +47,6 @@ class TestUserLoginView(TestCase):
         #     errors=["username or password is wrong"],
         # )
 
-        # self.assertIn("username or password is wrong", response.content)
-
-    # def test_invalid_login(self):
-    #     bad_resp = self.client.post(
-    #     "/accounts/login/", {"username": "bad", "password":
-    #     "bad"}
-    #     )
-    #     self.assertEqual(bad_resp.status_code, 200)
-    #     self.assertIn(b"Please enter a correct username and
-    #     password", bad_resp.content)
-
 
 class TestUserRegisterView(TestCase):
     def setUp(self):

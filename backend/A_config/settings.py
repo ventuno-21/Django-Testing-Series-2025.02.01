@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "app_account.apps.AppAccountConfig",
     "app_test1.apps.AppTest1Config",
     "app_pytest.apps.AppPytestConfig",
+    "app_products",
     # external apps
     "rest_framework",
     "drf_spectacular",

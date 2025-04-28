@@ -3,6 +3,7 @@ from app_account.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from app_products.models import Product
+from django.db import IntegrityError
 
 
 class ProductModelTest(TestCase):
@@ -28,3 +29,15 @@ class ProductModelTest(TestCase):
         self.product.stock_count = -5
         with self.assertRaises(ValidationError):
             self.product.clean()
+
+    def test_negative_price_constraint(self):
+        product = Product(name="negative product price", price=-10, stock_count=3)
+
+        with self.assertRaises(IntegrityError):
+            product.save()
+
+    def test_negative_stock_count_constraint(self):
+        product = Product(name="negative stock qty", price=10, stock_count=-3)
+
+        with self.assertRaises(IntegrityError):
+            product.save()

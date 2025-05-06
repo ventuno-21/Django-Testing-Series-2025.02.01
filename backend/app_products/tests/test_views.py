@@ -7,10 +7,31 @@ from django.urls import reverse
 from django.db import IntegrityError
 
 
-class TestProductsPage(SimpleTestCase):
-
+class TestAllProductsPage(TestCase):
     def setUp(self):
-        response = self.client.get(reverse("app_products:products"))
+        Product.objects.create(name="p1", price=15, stock_count=10)
+        Product.objects.create(name="p2", price=5, stock_count=15)
+        Product.objects.create(name="p3", price=10, stock_count=3)
+
+    def test_all_products_uses_correct_template(self):
+        response = self.client.get(reverse("app_products:all"))
+        self.assertTemplateUsed(response, "app_products/products.html")
+
+    def test_all_products_context(self):
+        response = self.client.get(reverse("app_products:all"))
+        self.assertEqual(len(response.context["products"]), 3)
+        self.assertContains(response, "p1")
+        self.assertContains(response, "p2")
+        self.assertNotContains(response, "No products available")
+
+    def test_all_products_with_no_products(self):
+        Product.objects.all().delete()
+        response = self.client.get(reverse("app_products:all"))
+        self.assertEqual(len(response.context["products"]), 0)
+        self.assertContains(response, "No products available")
+
+
+class TestProductsPage(SimpleTestCase):
 
     def test_products_status_code(self):
         response = self.client.get(reverse("app_products:products"))

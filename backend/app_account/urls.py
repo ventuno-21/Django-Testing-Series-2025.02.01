@@ -33,5 +33,6 @@ urlpatterns = [
         views.UserUnfollowView.as_view(),
         name="user_unfollow",
     ),
+    path("profile/", views.profile, name="profile"),
     path("edit_user/", views.EditUserView.as_view(), name="edit_user"),
 ]

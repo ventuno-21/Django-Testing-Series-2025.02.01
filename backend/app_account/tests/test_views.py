@@ -4,6 +4,23 @@ from app_account.models import User
 from app_account.forms import UserRegistrationForm
 
 
+class TestProfilPage(TestCase):
+
+    def test_profile_view_accessibility_for_anonymous_users(self):
+        response = self.client.get(reverse("app_account:profile"))
+        # http://127.0.0.1:8000/account/login/?next=/account/profile/
+        self.assertRedirects(
+            response,
+            expected_url=f"{reverse('app_account:user_login')}?next={reverse('app_account:profile')}",
+        )
+
+    def test_profile_view_accessibility_for_authenticated_users(self):
+        User.objects.create_user(username="user1", password="user1")
+        self.client.login(username="user1", password="user1")
+        response = self.client.get(reverse("app_account:profile"))
+        self.assertContains(response, "user1")
+
+
 class TestUserLoginView(TestCase):
 
     def setUp(self):

@@ -7,6 +7,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from .models import Relation, User
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def profile(request):
+    return render(request, "app_account/profile.html")
 
 
 class UserRegisterView(View):

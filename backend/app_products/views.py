@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Product
 from .forms import ProductForm
 from django.urls import reverse
+from django.http import JsonResponse, HttpResponse
 
 
 # Create your views here.

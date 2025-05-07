@@ -2,9 +2,24 @@ from django.shortcuts import redirect, render
 from django.views import View
 from app_test1.models import Writer
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.http import JsonResponse, HttpResponse
+import requests
+from requests.exceptions import RequestException
 
 # Create your views here.
+
+
+def post_sth(request):
+    try:
+        response = requests.get("https://jsonplaceholder.typicode.com/posts/1")
+        response.raise_for_status()
+
+        return JsonResponse(response.json())
+    except RequestException as e:
+
+        return HttpResponse("Service unavailable", status=503)
+
+
 class Main(View):
     def get(self, request):
         if request.user.is_authenticated:

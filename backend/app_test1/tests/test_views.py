@@ -3,10 +3,43 @@ from django.urls import reverse
 from django.contrib.auth.models import AnonymousUser
 from app_account.models import User
 from app_test1.views import Main
+from unittest.mock import patch
+import requests
 
-"""Difference between RequestFactory() & Client():
+"""
+Difference between RequestFactory() & Client():
  RequestFactory returns a request, while Client returns a response
 """
+
+
+class PostViewTest(TestCase):
+
+    @patch("app_test1.views.requests.get")
+    def test_post_view_success(self, mock_get):
+        mock_get.return_value.status_code = 200
+        return_data = {"userId": 1, "id": 1, "title": "Test title", "body": "Test body"}
+        # return_data = {
+        #     "userId": 1,
+        #     "id": 1,
+        #     "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        #     "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+        # }
+        mock_get.return_value.json.return_value = return_data
+
+        # send a request to view
+        response = self.client.get(reverse("app_test1:post"))
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, return_data)
+
+        # Ensure that the mock API call was made once with the correct URL
+        mock_get.assert_called_once_with("https://jsonplaceholder.typicode.com/posts/1")
+
+    @patch("app_test1.views.requests.get")
+    def test_post_sth_view_fail(self, mock_get):
+        mock_get.side_effect = requests.exceptions.RequestException
+        response = self.client.get(reverse("app_test1:post"))
+        self.assertEqual(response.status_code, 503)
+        mock_get.assert_called_once_with("https://jsonplaceholder.typicode.com/posts/1")
 
 
 class TestWriterView(TestCase):

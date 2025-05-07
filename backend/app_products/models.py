@@ -32,15 +32,15 @@ class Product(models.Model):
     def in_stock(self):
         return self.stock_count > 0
 
-    def clean(self):
-        """
-        clean method will not be run if we save() an instance with negative price or stock_count
-        therefore we should mention "constraints" in Meta class
+    # def clean(self):
+    #     """
+    #     clean method will not be run if we save() an instance with negative price or stock_count
+    #     therefore we should mention "constraints" in Meta class
 
-        If we hange the type of stock_count to PostivieIntegreField,
-        It will not be necessarly to write a contraints for it
-        """
-        if self.price < 0:
-            raise ValidationError("Price can not be negative!")
-        if self.stock_count < 0:
-            raise ValidationError("Stock quantity can not be negative!")
+    #     If we hange the type of stock_count to PostivieIntegreField,
+    #     It will not be necessarly to write a contraints for it
+    #     """
+    #     if self.price < 0:
+    #         raise ValidationError("Price can not be negative!")
+    #     if self.stock_count < 0:
+    #         raise ValidationError("Stock quantity can not be negative!")

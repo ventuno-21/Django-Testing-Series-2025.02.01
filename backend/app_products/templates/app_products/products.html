@@ -2,9 +2,17 @@
 
 {% block content %}
 <h4>all products </h4>
+<form method='POST'>
+    {% csrf_token %}
+    {{ form.as_div}}
+    <button type='submit' >submit</button>
+
+</form>
+
+<hr/>
 
 {% for p in products %}
-<p> {{ p.name }} </p>
+<p> name: {{ p.name }} - price: {{p.price}} - stock qty: {{p.stock_count}}</p>
 {% empty%}
 <h4>No products available </h4>
 

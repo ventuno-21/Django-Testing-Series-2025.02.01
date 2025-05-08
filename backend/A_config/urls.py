@@ -28,6 +28,7 @@ urlpatterns = [
     path("products/", include("app_products.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("app_pytest.urls")),
+    path("blog/", include("app_blog.urls")),
 ]
 
 # if settings.DEBUG:

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Blog page</h1>
+
+{% for p in posts %}
+title: {{p.title}}
+body: {{p.body}}
+author: {{p.author}}
+{% empty %}
+<h4> No post available right now </h4>
+{% endfor %}
+
+{% endblock %}
